@@ -1,4 +1,4 @@
-/* Copyright (c) 2012-2019, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2012-2020, The Linux Foundation. All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -258,8 +258,6 @@ static void ipa3_uc_save_dbg_stats(u32 size)
 		} else
 			goto unmap;
 		break;
-	case IPA_HW_PROTOCOL_11ad:
-		break;
 	case IPA_HW_PROTOCOL_WDI:
 		if (!ipa3_ctx->wdi2_ctx.dbg_stats.uc_dbg_stats_mmio) {
 			ipa3_ctx->wdi2_ctx.dbg_stats.uc_dbg_stats_size =
@@ -281,8 +279,6 @@ static void ipa3_uc_save_dbg_stats(u32 size)
 				mmio;
 		} else
 			goto unmap;
-		break;
-	case IPA_HW_PROTOCOL_ETH:
 		break;
 	case IPA_HW_PROTOCOL_MHIP:
 		if (!ipa3_ctx->mhip_ctx.dbg_stats.uc_dbg_stats_mmio) {
@@ -1145,8 +1141,6 @@ int ipa3_uc_debug_stats_dealloc(uint32_t prot_id)
 		iounmap(ipa3_ctx->aqc_ctx.dbg_stats.uc_dbg_stats_mmio);
 		ipa3_ctx->aqc_ctx.dbg_stats.uc_dbg_stats_mmio = NULL;
 		break;
-	case IPA_HW_PROTOCOL_11ad:
-		break;
 	case IPA_HW_PROTOCOL_WDI:
 		iounmap(ipa3_ctx->wdi2_ctx.dbg_stats.uc_dbg_stats_mmio);
 		ipa3_ctx->wdi2_ctx.dbg_stats.uc_dbg_stats_mmio = NULL;
@@ -1154,8 +1148,6 @@ int ipa3_uc_debug_stats_dealloc(uint32_t prot_id)
 	case IPA_HW_PROTOCOL_WDI3:
 		iounmap(ipa3_ctx->wdi3_ctx.dbg_stats.uc_dbg_stats_mmio);
 		ipa3_ctx->wdi3_ctx.dbg_stats.uc_dbg_stats_mmio = NULL;
-		break;
-	case IPA_HW_PROTOCOL_ETH:
 		break;
 	default:
 		IPAERR("unknown protocols %d\n", prot_id);
