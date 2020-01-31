@@ -914,4 +914,9 @@ config STMVL53L1_USE_CAMERA_CCI
 	help
 	  Say Y if camera cci interface is used in STMVL53L1 module.
 
+config ETS_FPS_MMI
+	bool "STM VL53L1 use camera cci interface"
+	depends on I2C
+	default n
+
 endif
