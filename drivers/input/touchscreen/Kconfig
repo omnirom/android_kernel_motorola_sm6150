@@ -1299,6 +1299,14 @@ config TOUCHSCREEN_SYNAPTICS_TCM
 	  If unsure, say N.
 
 config TOUCHSCREEN_FOCALTECH_MMI
+	tristate "Focaltech Touchscreen Driver"
+	depends on I2C
+
+config INPUT_FOCALTECH_0FLASH_MMI_IC_NAME
+	string "Focaltech IC Name"
+	depends on I2C
+
+config INPUT_FOCALTECH_0FLASH_MMI_IC_NAME_FT8756
 	bool "Focaltech Touchscreen Driver"
 	depends on I2C
 
