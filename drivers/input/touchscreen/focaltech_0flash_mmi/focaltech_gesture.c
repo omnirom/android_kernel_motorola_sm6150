@@ -37,11 +37,11 @@
 /******************************************************************************
 * Private constant and macro definitions using #define
 *****************************************************************************/
-#define KEY_GESTURE_U                           KEY_U
-#define KEY_GESTURE_UP                          KEY_UP
-#define KEY_GESTURE_DOWN                        KEY_DOWN
-#define KEY_GESTURE_LEFT                        KEY_LEFT
-#define KEY_GESTURE_RIGHT                       KEY_RIGHT
+#define KEY_GESTURE_U                           KEY_POWER
+#define KEY_GESTURE_UP                          KEY_POWER
+#define KEY_GESTURE_DOWN                        KEY_POWER
+#define KEY_GESTURE_LEFT                        KEY_POWER
+#define KEY_GESTURE_RIGHT                       KEY_POWER
 #define KEY_GESTURE_O                           KEY_O
 #define KEY_GESTURE_E                           KEY_E
 #define KEY_GESTURE_M                           KEY_M
@@ -245,7 +245,7 @@ static void fts_gesture_report(struct input_dev *input_dev, int gesture_id)
     static int report_cnt = 0;
 #endif
 
-    FTS_DEBUG("gesture_id:0x%x", gesture_id);
+    FTS_INFO("gesture_id:0x%x", gesture_id);
     switch (gesture_id) {
     case GESTURE_LEFT:
         gesture = KEY_GESTURE_LEFT;
@@ -295,7 +295,7 @@ static void fts_gesture_report(struct input_dev *input_dev, int gesture_id)
     }
     /* report event key */
     if (gesture != -1) {
-        FTS_DEBUG("Gesture Code=%d", gesture);
+        FTS_INFO("Gesture Code=%d", gesture);
 #ifdef FOCALTECH_SENSOR_EN
         if (!(fts_data->wakeable && fts_data->should_enable_gesture)) {
             FTS_INFO("Gesture got but wakeable not set. Skip this gesture.");
@@ -307,6 +307,11 @@ static void fts_gesture_report(struct input_dev *input_dev, int gesture_id)
         if (report_cnt >= REPORT_MAX_COUNT)
             report_cnt = 0;
         input_sync(fts_data->sensor_pdata->input_sensor_dev);
+
+        input_report_key(input_dev, gesture, 1);
+        input_sync(input_dev);
+        input_report_key(input_dev, gesture, 0);
+        input_sync(input_dev);
 #ifdef CONFIG_HAS_WAKELOCK
         wake_lock_timeout(&gesture_wakelock, msecs_to_jiffies(5000));
 #else

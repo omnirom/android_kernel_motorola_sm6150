@@ -120,6 +120,8 @@
 #define _FT3168             0x31680085
 #define _FT3268             0x32680085
 
+#define FOCALTECH_SENSOR_EN 1
+
 /*************************************************/
 
 /*
@@ -180,7 +182,7 @@
  * Production test enable
  * 1: enable, 0:disable(default)
  */
-#define FTS_TEST_EN                             1
+#define FTS_TEST_EN                             0
 
 /*
  * Nodes for tools, please keep enable
